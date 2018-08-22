@@ -1,4 +1,4 @@
-package com.demo.project.test;
+package com.demo.project.servertoclient;
 
 import java.io.IOException;
 import java.io.InputStream;
