@@ -30,7 +30,8 @@ public class NioSocketServer {
 	            Set keys = selector.selectedKeys();         //如果channel有数据了，将生成的key访入keys集合中
 	            Iterator iterator = keys.iterator();        //得到这个keys集合的迭代器
 	            while (iterator.hasNext()){             //使用迭代器遍历集合
-	                SelectionKey key = (SelectionKey) iterator.next();       //得到集合中的一个key实例
+					SelectionKey key = (SelectionKey) iterator.next();       //得到集合中的一个key实例
+					System.out.println(key);
 	                iterator.remove();          //拿到当前key实例之后记得在迭代器中将这个元素删除，非常重要，否则会出错
 	                if (key.isAcceptable()){         //判断当前key所代表的channel是否在Acceptable状态，如果是就进行接收
 	                    doAccept(key);

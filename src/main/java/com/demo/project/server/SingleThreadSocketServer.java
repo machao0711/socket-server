@@ -39,13 +39,13 @@ public class SingleThreadSocketServer {
 			pw.write("欢迎您,我是服务端！");
 			pw.flush();
 			//5、关闭资源
-			pw.close();
+			/* pw.close();
 			os.close();
 			br.close();
 			isr.close();
 			is.close();
 			socket.close();
-			server.close();
+			server.close(); */
 		} catch (IOException e) {
 			e.printStackTrace();
 		}//1024-65535的某个端口
