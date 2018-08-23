@@ -20,11 +20,9 @@ class ServerOb{
 	ServerSocket ss;
 	public ServerOb(int p){
 		this.port=p;
-
 		try {
 			ss = new ServerSocket(port);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		while(true){
