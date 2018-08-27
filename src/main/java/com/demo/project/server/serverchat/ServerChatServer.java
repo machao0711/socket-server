@@ -1,4 +1,4 @@
-package com.demo.project.servertoclient;
+package com.demo.project.server.serverchat;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,10 +11,10 @@ import java.util.Scanner;
  * socket实现服务端和客户端的对话
  * 			服务端
  */
-public class clientServerTalkServer extends Thread{
+public class ServerChatServer extends Thread{
 	ServerSocket server = null;
 	Socket socket = null;
-	public clientServerTalkServer(int port) {
+	public ServerChatServer(int port) {
 		try {
 			server = new ServerSocket(port);
 		} catch (IOException e) {
@@ -75,7 +75,7 @@ public class clientServerTalkServer extends Thread{
 
 	//函数入口
 	public static void main(String[] args) {
-		clientServerTalkServer server = new clientServerTalkServer(5555);
+		ServerChatServer server = new ServerChatServer(5555);
 		server.start();
 	}
 }

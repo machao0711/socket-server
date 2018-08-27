@@ -1,4 +1,4 @@
-package com.demo.project.server.clienttoclient;
+package com.demo.project.server.clientchat;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Set;
 
-public class ClientClientTalkServer {
+public class ClientChatServer {
 
 	public static void main(String[] args) {
 		new ServerOb(8080);
