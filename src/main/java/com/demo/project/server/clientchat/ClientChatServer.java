@@ -8,6 +8,9 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Set;
 
+import com.demo.project.constant.ServerConstant;
+import com.demo.project.util.ServerUtil;
+
 public class ClientChatServer {
 
 	public static void main(String[] args) {
@@ -51,127 +54,39 @@ class clientO implements Runnable{
 			this.in=new DataInputStream(soc.getInputStream());
 			this.out=new DataOutputStream(soc.getOutputStream());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		getKey();
-	}
-	public String getNumber(){
-
-		try {
-			number=in.readUTF();//1
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return number;
-	}
-	public void  getKey(){
-		map.put(getNumber(), soc);//得到帐号保存Map
-		Set<String> ke = map.keySet();
-		if(ke!=null)
-			try {
-				out.writeUTF(ke.toString());//2
-				out.flush();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		ServerUtil serverUtil=new ServerUtil();
+		serverUtil.getKey(out, map, s, in, number);
 	}
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		String oth;
 		try {
-
-
 			while(true){
 				oth = in.readUTF();
-
-				if(oth.equalsIgnoreCase("l")){
-					getOtherNumber();
+				ServerUtil serverUtil=new ServerUtil();
+				if(oth.equalsIgnoreCase(ServerConstant.chat)){
+					serverUtil.getOtherNumber(in, map, oth);
 				}
-				if(oth.equalsIgnoreCase("w")){
-					getFileransmission();
+				if(oth.equalsIgnoreCase(ServerConstant.file)){
+					serverUtil.getFileransmission(in, map, oth);
 				}
-				if(oth.equalsIgnoreCase("t")){
+				if(oth.equalsIgnoreCase(ServerConstant.exit)){
 					in.close();
 					out.close();
 					map.remove(number);
 					soc.close();
 					break;
 				}
-
 			}}
 		catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("run  中出错");
 		}
 	}
-	public  void getFileransmission(){
-		while(true){
-			try {
-				String oth = in.readUTF();//传输对象编号
-				if(oth.equalsIgnoreCase("bye")){
-					return;
-				}
-				Socket other = map.get(oth);//取得传输对象socket
-				String fileName = in.readUTF();//传输文件名
 
-				DataOutputStream asd = new DataOutputStream(other.getOutputStream());
-				asd.writeUTF("w");
-				asd.flush();
-				asd.writeUTF(number+"====="+fileName);
-				asd.flush();
-				// 文件字节传输
-				byte[] b= new byte[1024];
-				int i=0;
-				while((i=in.read(b))!=-1){
-					asd.write(b, 0, i);
-					asd.flush();
-				}
-
-
-
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println(number+"文件传输出错");
-			}
-		}
-	}
-	public void  getOtherNumber(){
-		while(true){
-			try {    
-				System.out.println("hhhhhhhhhhhhhhhhhh");
-				String oth = in.readUTF();//4
-				System.out.println(oth);
-				Socket other = map.get(oth);
-				DataOutputStream asd = new DataOutputStream(other.getOutputStream());
-
-				if(oth.equalsIgnoreCase("bye")){
-					return;
-				}
-				String value = in.readUTF();//5
-
-				String str=number +"对你说：\r\n"+value;
-
-				asd.writeUTF("l");
-				asd.flush();
-				asd.writeUTF(str);
-				asd.flush();
-				if(value.equalsIgnoreCase("bye")){
-					return;
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.out.println(number+"聊天传输出错");
-			}
-		}
-	}
 
 
 }
