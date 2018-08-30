@@ -2,7 +2,6 @@ package com.demo.project.test;
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import com.demo.project.server.clientchat.ClientChatServer;
 
 @SpringBootTest
