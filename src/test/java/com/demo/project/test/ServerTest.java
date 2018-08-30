@@ -9,7 +9,7 @@ import com.demo.project.server.clientchat.ClientChatServer;
 public class ServerTest {
 	@Test
 	public void clientTalkToServer(){
-		new ClientChatServer(8080);
+		new ClientChatServer(5555);
 	}
 
 }
