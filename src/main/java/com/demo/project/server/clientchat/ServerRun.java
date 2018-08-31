@@ -24,7 +24,9 @@ public class ServerRun implements Runnable{
 			e.printStackTrace();
 		}
 		ServerUtil serverUtil=new ServerUtil();
+		number=serverUtil.getNumber(in, number);
 		serverUtil.getKey(out, map, s, in, number);
+		
 	}
 
 	@Override
@@ -35,10 +37,10 @@ public class ServerRun implements Runnable{
 				oth = in.readUTF();
 				ServerUtil serverUtil=new ServerUtil();
 				if(oth.equalsIgnoreCase(ServerConstant.chat)){
-					serverUtil.getOtherNumber(in, map, oth);
+					serverUtil.getOtherNumber(in, map, number);
 				}
 				if(oth.equalsIgnoreCase(ServerConstant.file)){
-					serverUtil.getFileransmission(in, map, oth);
+					serverUtil.getFileransmission(in, map, number);
 				}
 				if(oth.equalsIgnoreCase(ServerConstant.exit)){
 					in.close();

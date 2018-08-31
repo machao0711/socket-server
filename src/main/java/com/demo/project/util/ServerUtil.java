@@ -19,7 +19,7 @@ public class ServerUtil {
 		return number;
 	}
 	public void  getKey(DataOutputStream out,HashMap<String, Socket> map,Socket soc,DataInputStream in,String number){
-		map.put(getNumber(in, number), soc);//得到帐号保存Map
+		map.put(number, soc);//得到帐号保存Map
 		Set<String> ke = map.keySet();
 		if(ke!=null)
 			try {
@@ -65,15 +65,14 @@ public class ServerUtil {
 			try {    
 				System.out.println("hhhhhhhhhhhhhhhhhh");
 				String oth = in.readUTF();//4
-				System.out.println(oth);
-				Socket other = map.get(oth);
+				System.out.println("聊天对象："+oth);
+				Socket other = map.get(oth.trim());
 				DataOutputStream asd = new DataOutputStream(other.getOutputStream());
-
 				if(oth.equalsIgnoreCase("bye")){
 					return;
 				}
 				String value = in.readUTF();//5
-
+				System.out.println("聊天内容："+value);
 				String str=number +"对你说：\r\n"+value;
 
 				asd.writeUTF("l");
