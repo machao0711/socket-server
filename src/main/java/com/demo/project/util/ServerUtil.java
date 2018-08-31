@@ -75,7 +75,7 @@ public class ServerUtil {
 				System.out.println("聊天内容："+value);
 				String str=number +"对你说：\r\n"+value;
 
-				asd.writeUTF("l");
+				//asd.writeUTF(ServerConstant.chat);
 				asd.flush();
 				asd.writeUTF(str);
 				asd.flush();
