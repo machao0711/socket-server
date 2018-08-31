@@ -7,6 +7,8 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Set;
 
+import com.demo.project.constant.ServerConstant;
+
 public class ServerUtil {
 	public String getNumber(DataInputStream in,String number){
 
@@ -75,7 +77,7 @@ public class ServerUtil {
 				System.out.println("聊天内容："+value);
 				String str=number +"对你说：\r\n"+value;
 
-				//asd.writeUTF(ServerConstant.chat);
+				asd.writeUTF(ServerConstant.chat);
 				asd.flush();
 				asd.writeUTF(str);
 				asd.flush();
